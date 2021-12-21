@@ -98,3 +98,4 @@ const chatViewRoute = 'chat-view';
 const ordersViewRoute = 'orders-view';
 const pickupDetailsViewRoute = 'pick-up-details-view';
 const buyCoinViewRoute = 'buy-coin-view';
+const trackOrderViewRoute = 'track-order-view';

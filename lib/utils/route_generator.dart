@@ -28,6 +28,8 @@ class RouteGenerator {
         return _getPageRoute(const OrdersView());
       case pickupDetailsViewRoute:
         return _getPageRoute(const PickupDetails());
+      case trackOrderViewRoute:
+        return _getPageRoute(const TrackOrderView());
       case oopsViewRoute:
         final message = settings.arguments;
         if (message != null && message is OopsArgs) {

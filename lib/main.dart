@@ -39,7 +39,7 @@ class VoltDriverApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 navigatorKey: locator<NavigationHandler>().navigatorKey,
                 onGenerateRoute: RouteGenerator.onGenerateRoute,
-                initialRoute: splashScreenViewRoute,
+                initialRoute: trackOrderViewRoute,
                 builder: (context, widget) => Navigator(
                   onGenerateRoute: (settings) => CupertinoPageRoute(
                     builder: (context) => DialogManager(

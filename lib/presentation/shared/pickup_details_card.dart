@@ -99,7 +99,9 @@ class PickupDetailsCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: Button(
                   text: 'Accept',
-                  onPressed: () {},
+                  onPressed: () {
+                    locator<NavigationHandler>().pushNamed(trackOrderViewRoute);
+                  },
                   color: Theme.of(context).primaryColor,
                 ),
               ),
