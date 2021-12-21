@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:volt_driver/handlers/dialog_handler.dart';
 import 'package:volt_driver/models/dialog/dialog_request.dart';
-import 'package:volt_driver/presentation/shared/coin_picker_dialog.dart';
+import 'package:volt_driver/presentation/shared/picked_up_dialog.dart';
 import 'package:volt_driver/presentation/shared/dialog_card.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/shared/success_dialog.dart';
@@ -71,8 +71,8 @@ class _DialogManagerState extends State<DialogManager> {
           dismissDialog: (status) => _dismissDialog(true),
         );
 
-      case DialogContentType.coinPicker:
-        return CoinPickerDialog(
+      case DialogContentType.pickedUp:
+        return PickedUpDialog(
           request: request,
           dismissDialog: (status) => _dismissDialog(status),
         );

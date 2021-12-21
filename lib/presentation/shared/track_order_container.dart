@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
+import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
 
 class TrackOrderContainer extends StatefulWidget {
   const TrackOrderContainer({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
 
   @override
   Widget build(BuildContext context) {
+    var trackOrderVM = context.read<TrackOrderVM>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -145,6 +148,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
                           setState(() {
                             index++;
                             if (index == 4) {
+                              trackOrderVM.showPickedUpDialog();
                               index = 1;
                             }
                           });

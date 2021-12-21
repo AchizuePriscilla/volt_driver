@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:volt_driver/models/dialog/dialog_request.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 
-GlobalKey dialogContainerKey = GlobalKey();
-double dialogMargin = 30.w;
-
-class SuccessDialog extends StatelessWidget {
+class PickedUpDialog extends StatelessWidget {
   final DialogRequest request;
   final Function(bool) dismissDialog;
-  const SuccessDialog({
+  const PickedUpDialog({
     Key? key,
     required this.request,
     required this.dismissDialog,
@@ -21,7 +18,7 @@ class SuccessDialog extends StatelessWidget {
     return GestureDetector(
       onTapDown: (details) {
         //do nothing if dialog is not dismissable
-        // if (!request.dismissable) return;
+        if (!request.dismissable) return;
 
         var screenOffset = details.localPosition;
         var dialogCardHeight = dialogContainerKey.currentContext!.size!.height;
@@ -30,11 +27,11 @@ class SuccessDialog extends StatelessWidget {
 
         if (screenOffset.dy < (height - dialogCardHeight) / 2 ||
             screenOffset.dy > (height + dialogCardHeight) / 2) {
-          dismissDialog(true);
+          dismissDialog(false);
         }
         if (screenOffset.dx < dialogMargin ||
             screenOffset.dx > (width - dialogMargin)) {
-          dismissDialog(true);
+          dismissDialog(false);
         }
       },
       child: Material(
@@ -50,7 +47,7 @@ class SuccessDialog extends StatelessWidget {
                 key: dialogContainerKey,
                 constraints: BoxConstraints(
                     minWidth: MediaQuery.of(context).size.width * .6,
-                    minHeight: MediaQuery.of(context).size.height * .4),
+                    minHeight: MediaQuery.of(context).size.height * .3),
                 margin: EdgeInsets.symmetric(horizontal: dialogMargin),
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 decoration: BoxDecoration(
@@ -60,44 +57,36 @@ class SuccessDialog extends StatelessWidget {
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                        padding: EdgeInsets.all(20.h),
-                        height: 160.w,
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.w),
-                          color: Theme.of(context).primaryColorLight,
-                        ),
-                        child: Image.asset(
-                            'assets/images/${request.imagePath}.png')),
                     const CustomSpacer(
-                      flex: 3,
+                      flex: 5,
                     ),
                     Text(
                       request.message,
                       style: GoogleFonts.lato(
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context).primaryColorLight),
+                          fontSize: 48.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Palette.buttonColor),
                     ),
                     const CustomSpacer(
-                      flex: 3,
+                      flex: 10,
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Button(
                         onPressed: () => dismissDialog(false),
-                        text: request.buttonText,
+                        text: 'Close',
                         color: Palette.lightGreen,
                         isRounded: true,
                       ),
-                    )
+                    ),
+                    const CustomSpacer(
+                      flex: 3,
+                    ),
                   ],
                 ),
               ),
             ],
           ),
-        
         ),
       ),
     );

@@ -15,5 +15,6 @@ class AppProviders {
     ChangeNotifierProvider(create: (_) => LogInViewModel()),
     ChangeNotifierProvider(create: (_) => DrawerVM()),
     ChangeNotifierProvider(create: (_) => HomeVM()),
+    ChangeNotifierProvider(create: (_) => TrackOrderVM()),
   ];
 }

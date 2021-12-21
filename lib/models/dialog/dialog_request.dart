@@ -28,4 +28,4 @@ class DialogRequest {
   });
 }
 
-enum DialogContentType { success, transactionComplete, coinPicker }
+enum DialogContentType { success, transactionComplete, pickedUp }
