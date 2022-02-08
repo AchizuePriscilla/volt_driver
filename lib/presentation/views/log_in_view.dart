@@ -104,46 +104,8 @@ class _LogInViewState extends State<LogInView> {
                 const CustomSpacer(flex: 3),
                 Row(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: toggleRememberMe,
-                          child: Container(
-                            alignment: Alignment.topCenter,
-                            height: 13.h,
-                            width: 13.h,
-                            decoration: BoxDecoration(
-                              color: rememberMe
-                                  ? Palette.buttonColor
-                                  : Theme.of(context).backgroundColor,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Palette.buttonColor,
-                                width: 2,
-                              ),
-                            ),
-                            child: rememberMe
-                                ? Center(
-                                    child: Icon(Icons.check,
-                                        size: 9.h, color: Colors.white))
-                                : null,
-                          ),
-                        ),
-                        const CustomSpacer(
-                          horizontal: true,
-                          flex: 0.7,
-                        ),
-                        Text(
-                          "Remember me",
-                          style: GoogleFonts.lato(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
                     GestureDetector(
                       onTap: () {
                         loginVM.navigateToRoute(forgotPasswordViewRoute);
@@ -162,7 +124,6 @@ class _LogInViewState extends State<LogInView> {
                 const CustomSpacer(
                   flex: 4,
                 ),
-                
               ]),
             ),
           ),
