@@ -162,38 +162,7 @@ class _LogInViewState extends State<LogInView> {
                 const CustomSpacer(
                   flex: 4,
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Don't have an account? ",
-                      style: GoogleFonts.lato(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const CustomSpacer(
-                      horizontal: true,
-                      flex: 0.3,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        loginVM.navigateToRoute(signUpViewRoute);
-                      },
-                      child: Text(
-                        'Create one Here',
-                        style: GoogleFonts.lato(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Palette.orangeColor,
-                        ),
-                      ),
-                    ),
-                    const CustomSpacer(flex: 20),
-                  ],
-                ),
+                
               ]),
             ),
           ),

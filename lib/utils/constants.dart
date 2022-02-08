@@ -74,11 +74,11 @@ const List<Locale> countries = [
   Locale("zh")
 ];
 
+
+const String onboardingDone = 'onboardingStatus';
+
 const splashScreenViewRoute = '/';
 const onboardingViewRoute = 'onboarding-view';
-const setPhoneNumberViewRoute = 'set-phone-number-view';
-const verificationViewRoute = 'verification-view';
-const signUpViewRoute = 'signUp-view';
 const logInViewRoute = 'logIn-view';
 const homeViewRoute = 'home-view';
 const oopsViewRoute = 'oops-view';

@@ -4,7 +4,6 @@ export 'package:volt_driver/presentation/theme/palette.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'custom_spacer.dart';
 export 'button.dart';
-export 'pin_code_fields.dart';
 export 'custom_textfield.dart';
 export 'password_visibility_icon.dart';
 export 'drawer_menu_row.dart';
