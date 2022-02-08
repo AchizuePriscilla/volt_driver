@@ -76,7 +76,7 @@ class _DialogManagerState extends State<DialogManager> {
           request: request,
           dismissDialog: (status) => _dismissDialog(status),
         );
- case DialogContentType.transactionComplete:
+ case DialogContentType.error:
         return TransactionSuccessfulDialog(
           request: request,
           dismissDialog: (status) => _dismissDialog(status),

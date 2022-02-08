@@ -5,3 +5,4 @@ export 'locator.dart';
 export 'enums.dart';
 export 'logger.dart';
 export 'env_config.dart';
+export 'validators.dart';

@@ -9,7 +9,7 @@ class SplashScreenVM extends BaseViewModel {
           //check if user is logged in
           if (token != null && token.isNotEmpty) {
             //if user is logged in,
-            navigationHandler.pushReplacementNamed(homeViewRoute);
+            navigationHandler.pushReplacementNamed(ordersViewRoute);
           } else {
             //#beginning of user not logged in flow
             //if user is not logged in, check if user has been onboarded

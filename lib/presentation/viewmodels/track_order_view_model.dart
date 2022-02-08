@@ -1,5 +1,5 @@
-import 'package:volt_driver/models/dialog/dialog_request.dart';
 import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
+import 'package:volt_driver/utils/enums.dart';
 
 class TrackOrderVM extends BaseViewModel {
   void showPickedUpDialog() {

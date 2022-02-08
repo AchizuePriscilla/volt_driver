@@ -8,7 +8,6 @@ import 'package:volt_driver/data/remote/connectivity_service.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:dartz/dartz.dart';
 import 'package:volt_driver/models/api/api.dart';
-import 'package:volt_driver/utils/logger.dart';
 import 'package:volt_driver/utils/utils.dart';
 
 abstract class BaseApi {

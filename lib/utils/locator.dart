@@ -5,6 +5,7 @@ import 'package:volt_driver/data/remote/auth_apis/auth_repo.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_repo_impl.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_service.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_service_impl.dart';
+import 'package:volt_driver/data/remote/connectivity_service.dart';
 import 'package:volt_driver/handlers/handlers.dart';
 
 GetIt locator = GetIt.instance;
@@ -31,6 +32,9 @@ Future<void> setupLocator({String baseApi = ''}) async {
 
   //services
 
+  locator.registerLazySingleton<ConnectivityService>(
+    () => ConnectivityServiceImpl(),
+  );
   locator.registerLazySingleton<AuthService>(
     () => AuthServiceImpl(
       authRepo: locator(),

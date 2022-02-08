@@ -12,8 +12,24 @@ class LogInView extends StatefulWidget {
 }
 
 class _LogInViewState extends State<LogInView> {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   bool hidePassword = true;
   bool rememberMe = false;
+  final _formKey = GlobalKey<FormState>();
+  bool buttonActive = false;
+
+  void onListen() {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      setState(() {
+        buttonActive = false;
+      });
+    } else {
+      setState(() {
+        buttonActive = true;
+      });
+    }
+  }
 
   void toggleVisibility() {
     setState(() {
@@ -25,6 +41,20 @@ class _LogInViewState extends State<LogInView> {
     setState(() {
       rememberMe = !rememberMe;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(onListen);
+    _passwordController.addListener(onListen);
+  }
+
+  @override
+  void dispose() {
+    _emailController.removeListener(onListen);
+    _passwordController.removeListener(onListen);
+    super.dispose();
   }
 
   @override
@@ -45,6 +75,7 @@ class _LogInViewState extends State<LogInView> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Form(
+              key: _formKey,
               child: ListView(children: [
                 Padding(
                   padding: EdgeInsets.only(top: 75.h, left: 75.h, right: 75.h),
@@ -66,7 +97,7 @@ class _LogInViewState extends State<LogInView> {
                 ),
                 const CustomSpacer(flex: 3),
                 Text(
-                  'Email or Phone Number',
+                  'Email',
                   style: GoogleFonts.poppins(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
@@ -76,6 +107,7 @@ class _LogInViewState extends State<LogInView> {
                 const CustomSpacer(flex: 1),
                 CustomTextField(
                   fillColor: Theme.of(context).primaryColorLight,
+                  controller: _emailController,
                 ),
                 const CustomSpacer(flex: 3),
                 Text(
@@ -90,6 +122,7 @@ class _LogInViewState extends State<LogInView> {
                 CustomTextField(
                   fillColor: Theme.of(context).disabledColor.withOpacity(.2),
                   obscure: hidePassword,
+                  controller: _passwordController,
                   suffix: PasswordVisibilityIcon(
                     onPressed: toggleVisibility,
                     value: hidePassword,
@@ -97,33 +130,15 @@ class _LogInViewState extends State<LogInView> {
                 ),
                 const CustomSpacer(flex: 8),
                 Button(
+                    active: buttonActive,
+                    loading: context.watch<LogInViewModel>().loading,
                     text: 'Log In',
                     onPressed: () {
-                      loginVM.navigateToRoute(ordersViewRoute);
+                      loginVM.login(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim());
                     }),
                 const CustomSpacer(flex: 3),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        loginVM.navigateToRoute(forgotPasswordViewRoute);
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Palette.orangeColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const CustomSpacer(
-                  flex: 4,
-                ),
               ]),
             ),
           ),

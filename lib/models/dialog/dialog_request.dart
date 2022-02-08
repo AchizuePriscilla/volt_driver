@@ -1,3 +1,5 @@
+import 'package:volt_driver/utils/enums.dart';
+
 class DialogRequest {
   final DialogContentType dialogContentType;
   final String title;
@@ -28,4 +30,3 @@ class DialogRequest {
   });
 }
 
-enum DialogContentType { success, transactionComplete, pickedUp }
