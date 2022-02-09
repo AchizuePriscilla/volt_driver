@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_driver/models/order_list_model.dart';
@@ -16,7 +18,15 @@ class _OrdersViewState extends State<OrdersView> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    context.read<UserVM>().fetchUserDataFromCache();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var user = context.watch<UserVM>();
+    log('Profile pic: ${user.profilePic.toString()}');
     return ResponsiveWidget(
         resizeToAvoidBottomInset: false,
         scaffoldKey: scaffoldKey,
@@ -66,10 +76,13 @@ class _OrdersViewState extends State<OrdersView> {
                           color: Palette.buttonColor.withOpacity(.7),
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: Image.asset(
-                              'assets/images/me.jpg',
-                              fit: BoxFit.cover,
-                            ).image,
+                            image: user.profilePic.isEmpty ||
+                                    user.profilePic == 'undefined'
+                                ? Image.asset(
+                                    'assets/images/empty_profile_picture.png',
+                                    fit: BoxFit.cover,
+                                  ).image
+                                : Image.network(user.profilePic).image,
                           ),
                         ),
                       ),

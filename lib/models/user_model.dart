@@ -60,10 +60,13 @@ class UserModel extends Equatable {
       'email': email,
       'phone': phoneNumber,
       'name': name,
+      'avatar': avatar,
       'location': {
         "address": address,
         "state": state,
         "country": country,
+        "lat": latitude,
+        "lng": longitude
       },
       'wallet': {
         'VLT_COIN': {'amount': vltCoinBalance},

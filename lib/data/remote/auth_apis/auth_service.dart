@@ -24,7 +24,6 @@ class AuthServiceImpl implements AuthService {
 
     if (res.success) {
       await cache.saveToken(res.token!);
-
       await cache.cacheUserData(
         value: json.encode(
           res.user!.toJson(),
