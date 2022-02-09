@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
+import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
+
 class OrdersView extends StatefulWidget {
   const OrdersView({Key? key}) : super(key: key);
 
@@ -82,13 +86,29 @@ class _OrdersViewState extends State<OrdersView> {
                         right: Radius.circular(20),
                       ),
                     ),
-                    child: ListView.builder(
-                        itemCount: 6,
-                        itemBuilder: (context, index) {
-                          return Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 10.h, horizontal: 20.w),
-                              child: const OrderCard());
+                    child: FutureBuilder<List<Order>>(
+                        future: context.watch<OrderVM>().getAssignedOrders(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var orders = snapshot.data;
+                            return ListView.builder(
+                                itemCount: orders!.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 10.h, horizontal: 20.w),
+                                      child: OrderCard(
+                                        order: orders[index],
+                                      ));
+                                });
+                          }
+                          if (snapshot.hasError) {
+                            return const Center(
+                              child: Text('Sorry, an error occured, try again'),
+                            );
+                          }
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }),
                   ),
                 ),
@@ -98,5 +118,3 @@ class _OrdersViewState extends State<OrdersView> {
         });
   }
 }
-
-

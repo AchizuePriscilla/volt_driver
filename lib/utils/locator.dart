@@ -2,10 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:volt_driver/data/local/local.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_repo.dart';
-import 'package:volt_driver/data/remote/auth_apis/auth_repo_impl.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_service.dart';
-import 'package:volt_driver/data/remote/auth_apis/auth_service_impl.dart';
 import 'package:volt_driver/data/remote/connectivity_service.dart';
+import 'package:volt_driver/data/remote/order_apis/order_repo.dart';
+import 'package:volt_driver/data/remote/order_apis/order_service.dart';
 import 'package:volt_driver/handlers/handlers.dart';
 
 GetIt locator = GetIt.instance;
@@ -41,8 +41,16 @@ Future<void> setupLocator({String baseApi = ''}) async {
       cache: locator(),
     ),
   );
+
+  locator.registerLazySingleton<OrderService>(
+    () => OrderServiceImpl(orderRepo: locator()),
+  );
   //repos
   locator.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(baseApi),
+  );
+
+  locator.registerLazySingleton<OrderRepo>(
+    () => OrderRepoImpl(baseApi),
   );
 }

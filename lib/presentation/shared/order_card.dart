@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:volt_driver/handlers/handlers.dart';
+import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/utils/utils.dart';
 
 class OrderCard extends StatelessWidget {
+  final Order order;
   const OrderCard({
+    required this.order,
     Key? key,
   }) : super(key: key);
 
@@ -27,7 +30,7 @@ class OrderCard extends StatelessWidget {
           ),
           const CustomSpacer(flex: 1),
           Text(
-            'QK78',
+            order.orderNo,
             style:
                 GoogleFonts.lato(fontWeight: FontWeight.w700, fontSize: 36.sp),
           ),

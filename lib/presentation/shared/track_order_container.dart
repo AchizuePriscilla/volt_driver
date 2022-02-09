@@ -29,7 +29,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
 
   @override
   Widget build(BuildContext context) {
-    var trackOrderVM = context.read<TrackOrderVM>();
+    var trackOrderVM = context.read<OrderVM>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
