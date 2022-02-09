@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_driver/models/order_list_model.dart';
+import 'package:volt_driver/presentation/shared/empty_container.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
 
@@ -91,16 +92,29 @@ class _OrdersViewState extends State<OrdersView> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var orders = snapshot.data;
-                            return ListView.builder(
-                                itemCount: orders!.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: 10.h, horizontal: 20.w),
-                                      child: OrderCard(
-                                        order: orders[index],
-                                      ));
-                                });
+
+                            return RefreshIndicator(
+                              onRefresh: () async {
+                                await context
+                                    .read<OrderVM>()
+                                    .getAssignedOrders();
+                              },
+                              child: ListView.builder(
+                                  itemCount:
+                                      orders!.isEmpty ? 1 : orders.length,
+                                  itemBuilder: (context, index) {
+                                    return orders.isEmpty
+                                        ? const EmptyContainer(
+                                            message: 'Assigned orders')
+                                        : Container(
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 10.h,
+                                                horizontal: 20.w),
+                                            child: OrderCard(
+                                              order: orders[index],
+                                            ));
+                                  }),
+                            );
                           }
                           if (snapshot.hasError) {
                             return const Center(

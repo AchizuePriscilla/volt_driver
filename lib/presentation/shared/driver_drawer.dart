@@ -82,7 +82,7 @@ class DriverDrawer extends StatelessWidget {
             DrawerMenuRow(
               icon: Icons.history_outlined,
               onTap: () {
-                drawerVM.navigateToRoute(historyViewRoute);
+                // drawerVM.navigateToRoute(historyViewRoute);
               },
               label: 'History',
             ),
@@ -93,7 +93,9 @@ class DriverDrawer extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  drawerVM.navigateToRoute(logInViewRoute, signOut: true);
+                },
                 child: SizedBox(
                   child: Column(
                     children: [

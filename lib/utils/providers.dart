@@ -13,5 +13,6 @@ class AppProviders {
     ChangeNotifierProvider(create: (_) => DrawerVM()),
     ChangeNotifierProvider(create: (_) => HomeVM()),
     ChangeNotifierProvider(create: (_) => OrderVM()),
+    ChangeNotifierProvider(create: (_) => UserVM()),
   ];
 }

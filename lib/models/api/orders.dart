@@ -5,7 +5,7 @@ import 'package:volt_driver/models/order_list_model.dart';
 import 'api_error_response.dart';
 
 class GetAssignedOrdersResponse extends Equatable {
-final bool success;
+  final bool success;
   final OrderListModel? orders;
   final ApiErrorResponse? error;
 
@@ -20,16 +20,11 @@ final bool success;
       (failure) => GetAssignedOrdersResponse(error: failure.error),
       (success) => GetAssignedOrdersResponse(
         success: true,
-        orders: OrderListModel.fromJson(success.data['orders'] ?? ""),
+        orders: OrderListModel.fromMap(success.data),
       ),
     );
   }
 
   @override
-  List<Object?> get props => [
-        success,
-        error,
-        orders
-      ];
-  
+  List<Object?> get props => [success, error, orders];
 }

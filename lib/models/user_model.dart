@@ -13,8 +13,8 @@ class UserModel extends Equatable {
   final String? password;
   final String? timeOfCreation;
   final String? timeOfUpdate;
-  final int? latitude;
-  final int? longitude;
+  final double? latitude;
+  final double? longitude;
   final String? avatar;
 
   const UserModel(
@@ -89,8 +89,8 @@ class UserModel extends Equatable {
       {String? name,
       String? phoneNumber,
       String? address,
-      int? latitude,
-      int? longitude,
+      double? latitude,
+      double? longitude,
       String? avatar}) {
     return UserModel(
         id: id,
