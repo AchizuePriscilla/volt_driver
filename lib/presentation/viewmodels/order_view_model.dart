@@ -4,6 +4,7 @@ import 'package:volt_driver/utils/utils.dart';
 
 class OrderVM extends BaseViewModel {
   late OrderListModel assignedOrders;
+  late OrderListModel allOrders;
 
   void showPickedUpDialog() {
     dialogHandler.showDialog(
@@ -17,6 +18,17 @@ class OrderVM extends BaseViewModel {
       var res = await orderService.getAssignedOrders();
       assignedOrders = res.orders!;
       return assignedOrders.orders;
+    } catch (e) {
+      AppLogger.logger.d(e);
+      return [];
+    }
+  }
+
+  Future<List<Order>> getAllOrders() async {
+    try {
+      var res = await orderService.getAllOrders();
+      allOrders = res.orders!;
+      return allOrders.orders;
     } catch (e) {
       AppLogger.logger.d(e);
       return [];

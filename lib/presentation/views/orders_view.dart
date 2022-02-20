@@ -101,16 +101,14 @@ class _OrdersViewState extends State<OrdersView> {
                       ),
                     ),
                     child: FutureBuilder<List<Order>>(
-                        future: context.watch<OrderVM>().getAssignedOrders(),
+                        future: context.watch<OrderVM>().getAllOrders(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var orders = snapshot.data;
 
                             return RefreshIndicator(
                               onRefresh: () async {
-                                await context
-                                    .read<OrderVM>()
-                                    .getAssignedOrders();
+                                await context.read<OrderVM>().getAllOrders();
                               },
                               child: ListView.builder(
                                   itemCount:
