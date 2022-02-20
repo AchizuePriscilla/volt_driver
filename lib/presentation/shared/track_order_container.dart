@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
 
 class TrackOrderContainer extends StatefulWidget {
-  const TrackOrderContainer({Key? key}) : super(key: key);
+  final Order order;
+  const TrackOrderContainer({Key? key, required this.order}) : super(key: key);
 
   @override
   State<TrackOrderContainer> createState() => _TrackOrderContainerState();
@@ -86,7 +88,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
                                 ),
                               ),
                               TextSpan(
-                                text: 'QK78',
+                                text: widget.order.orderNo,
                                 style: GoogleFonts.lato(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,

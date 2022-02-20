@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 
 class PickupDetails extends StatefulWidget {
-  const PickupDetails({Key? key}) : super(key: key);
+  final Order order;
+  const PickupDetails({Key? key, required this.order}) : super(key: key);
 
   @override
   State<PickupDetails> createState() => _PickupDetailsState();
@@ -67,7 +69,9 @@ class _PickupDetailsState extends State<PickupDetails> {
                 const CustomSpacer(
                   flex: 3,
                 ),
-                const PickupDetailsCard(),
+                PickupDetailsCard(
+                  order: widget.order,
+                ),
               ],
             ),
           );

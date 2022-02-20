@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_driver/models/navigation/oops_args.dart';
+import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/presentation/views/views.dart';
 import 'package:volt_driver/utils/utils.dart';
 
@@ -12,8 +13,7 @@ class RouteGenerator {
         return _getPageRoute(const SplashScreenView());
       case onboardingViewRoute:
         return _getPageRoute(const OnboardingView());
-      
-     
+
       case logInViewRoute:
         return _getPageRoute(const LogInView());
       case resetPasswordViewRoute:
@@ -23,9 +23,21 @@ class RouteGenerator {
       case ordersViewRoute:
         return _getPageRoute(const OrdersView());
       case pickupDetailsViewRoute:
-        return _getPageRoute(const PickupDetails());
+        final order = settings.arguments;
+        if (order != null && order is PickupDetailsArgs) {
+          return _getPageRoute(PickupDetails(
+            order: order.order,
+          ));
+        }
+        return _getPageRoute(_errorPage(message: "Order parameter not passed"));
       case trackOrderViewRoute:
-        return _getPageRoute(const TrackOrderView());
+        final order = settings.arguments;
+        if (order != null && order is PickupDetailsArgs) {
+          return _getPageRoute(TrackOrderView(
+            order: order.order,
+          ));
+        }
+        return _getPageRoute(_errorPage(message: "Order parameter not passed"));
       case oopsViewRoute:
         final message = settings.arguments;
         if (message != null && message is OopsArgs) {

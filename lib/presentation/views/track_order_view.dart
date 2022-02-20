@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:volt_driver/models/order_list_model.dart';
+import 'package:volt_driver/presentation/shared/custom_back_button.dart';
 import 'package:volt_driver/presentation/shared/custom_spacer.dart';
 import 'package:volt_driver/presentation/shared/responsive_widget.dart';
 import 'package:volt_driver/presentation/shared/track_order_container.dart';
 
 class TrackOrderView extends StatefulWidget {
-  const TrackOrderView({Key? key}) : super(key: key);
+  final Order order;
+  const TrackOrderView({required this.order, Key? key}) : super(key: key);
 
   @override
   _TrackOrderPageState createState() => _TrackOrderPageState();
@@ -26,10 +29,20 @@ class _TrackOrderPageState extends State<TrackOrderView> {
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            TrackOrderContainer(),
-            CustomSpacer(
+          // mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const CustomSpacer(
+              flex: 10,
+            ),
+            const Align(
+                alignment: Alignment.topLeft, child: CustomBackButton()),
+            const Expanded(child: SizedBox()),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: TrackOrderContainer(
+                  order: widget.order,
+                )),
+            const CustomSpacer(
               flex: 10,
             )
           ],

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:volt_driver/handlers/handlers.dart';
+import 'package:volt_driver/models/navigation/pickup_details_args.dart';
+import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/utils/utils.dart';
 
 class PickupDetailsCard extends StatelessWidget {
+  final Order order;
   const PickupDetailsCard({
+    required this.order,
     Key? key,
   }) : super(key: key);
 
@@ -16,8 +20,9 @@ class PickupDetailsCard extends StatelessWidget {
       color: Theme.of(context).primaryColorLight,
       borderRadius: BorderRadius.circular(15),
       child: Container(
-        height: 240.h,
+        // height: 240.h,
         width: MediaQuery.of(context).size.width * .8,
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).primaryColorLight),
@@ -55,13 +60,13 @@ class PickupDetailsCard extends StatelessWidget {
                   fontWeight: FontWeight.w600, fontSize: 24.sp),
             ),
             Text(
-              'QK78',
+              order.orderNo,
               style: GoogleFonts.lato(
                   fontWeight: FontWeight.w700, fontSize: 14.sp),
             ),
             const CustomSpacer(flex: 4),
             Text(
-              'Plot 18, Jedidah Street, Enugu',
+              order.currentLocation.address,
               softWrap: true,
               style: GoogleFonts.lato(
                   fontWeight: FontWeight.w700, fontSize: 14.sp),
@@ -70,7 +75,7 @@ class PickupDetailsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Ade John  ',
+                  order.createdBy,
                   style: GoogleFonts.lato(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
@@ -79,15 +84,18 @@ class PickupDetailsCard extends StatelessWidget {
                 Container(
                   height: 3.h,
                   width: 3.h,
+                  margin: EdgeInsets.symmetric(horizontal: 7.w),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Theme.of(context).disabledColor),
                 ),
-                Text(
-                  '  08145518998',
-                  style: GoogleFonts.lato(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
+                Flexible(
+                  child: Text(
+                    '  08145518998khdfihjzdfhif',
+                    style: GoogleFonts.lato(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ],
@@ -100,24 +108,28 @@ class PickupDetailsCard extends StatelessWidget {
                 child: Button(
                   text: 'Accept',
                   onPressed: () {
-                    locator<NavigationHandler>().pushNamed(trackOrderViewRoute);
+                    locator<NavigationHandler>().pushNamed(trackOrderViewRoute,
+                        arg: PickupDetailsArgs(order));
                   },
                   color: Theme.of(context).primaryColor,
                 ),
               ),
             ),
-            const CustomSpacer(flex: 1),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Button(
-                  text: 'Decline',
-                  onPressed: () {},
-                  color: Colors.red,
-                ),
-              ),
-            ),
+            const CustomSpacer(
+              flex: 6,
+            )
+            // const CustomSpacer(flex: 1),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 20.w),
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(15),
+            //     child: Button(
+            //       text: 'Decline',
+            //       onPressed: () {},
+            //       color: Colors.red,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

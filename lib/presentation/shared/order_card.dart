@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:volt_driver/handlers/handlers.dart';
+import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/utils/utils.dart';
@@ -15,8 +16,9 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 140.h,
-      width: size.width * .8,
+      // height: 140.h,
+      width: size.width * .7,
+      margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 30.w),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).primaryColorLight),
@@ -48,16 +50,21 @@ class OrderCard extends StatelessWidget {
             )
           ]),
           const CustomSpacer(flex: 2),
-          Padding(
+          Container(
+            height: 35.h,
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Button(
               text: 'View Order',
               onPressed: () {
-                locator<NavigationHandler>().pushNamed(pickupDetailsViewRoute);
+                locator<NavigationHandler>().pushNamed(pickupDetailsViewRoute,
+                    arg: PickupDetailsArgs(order));
               },
               color: Palette.lightGreen,
             ),
           ),
+          const CustomSpacer(
+            flex: 4,
+          )
         ],
       ),
     );
