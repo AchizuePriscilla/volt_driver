@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_driver/handlers/handlers.dart';
-import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/models/order_list_model.dart';
+import 'package:volt_driver/models/user_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/viewmodels/order_view_model.dart';
 import 'package:volt_driver/utils/utils.dart';
@@ -16,6 +16,7 @@ class PickupDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orderVM = context.read<OrderVM>();
     return Material(
       shadowColor: Theme.of(context).primaryColorLight,
       elevation: 3,
@@ -48,9 +49,10 @@ class PickupDetailsCard extends StatelessWidget {
                       onPressed: () {
                         locator<NavigationHandler>().goBack();
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.close,
                         color: Colors.red,
+                        size: 24.h,
                       )),
                 )
               ],
@@ -66,18 +68,20 @@ class PickupDetailsCard extends StatelessWidget {
               style: GoogleFonts.lato(
                   fontWeight: FontWeight.w700, fontSize: 14.sp),
             ),
-            const CustomSpacer(flex: 4),
+            const CustomSpacer(flex: 2),
             Text(
-              order.currentLocation.address,
+              order.origin.address,
               softWrap: true,
+              textAlign: TextAlign.center,
               style: GoogleFonts.lato(
                   fontWeight: FontWeight.w700, fontSize: 14.sp),
             ),
+            const CustomSpacer(flex: 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  order.createdBy,
+                  orderVM.user.name!,
                   style: GoogleFonts.lato(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
@@ -93,7 +97,7 @@ class PickupDetailsCard extends StatelessWidget {
                 ),
                 Flexible(
                   child: Text(
-                    '  08145518998khdfihjzdfhif',
+                    orderVM.user.phoneNumber!,
                     style: GoogleFonts.lato(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,

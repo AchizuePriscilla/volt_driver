@@ -9,8 +9,8 @@ import 'package:volt_driver/models/api/get_user_response.dart';
 abstract class AuthService {
   Future<LoginResponse> logIn(LoginRequest request);
   Future<GetUserResponse> getUser();
+  Future<GetUserResponse> getUserById(String id);
 }
-
 
 class AuthServiceImpl implements AuthService {
   final AuthRepository authRepo;
@@ -40,4 +40,9 @@ class AuthServiceImpl implements AuthService {
     return res;
   }
 
+  @override
+  Future<GetUserResponse> getUserById(String id) async {
+    var res = await authRepo.getUserById(id);
+    return res;
+  }
 }

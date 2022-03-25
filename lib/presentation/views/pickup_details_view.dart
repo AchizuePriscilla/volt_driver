@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
-
-import '../viewmodels/user_view_model.dart';
+import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
 
 class PickupDetails extends StatefulWidget {
   final Order order;
@@ -76,9 +75,7 @@ class _PickupDetailsState extends State<PickupDetails> {
                 const CustomSpacer(
                   flex: 3,
                 ),
-                PickupDetailsCard(
-                  order: widget.order,
-                ),
+                PickupDetailsCard(order: widget.order),
               ],
             ),
           );

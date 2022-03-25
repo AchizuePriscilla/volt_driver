@@ -20,7 +20,7 @@ class _OrdersViewState extends State<OrdersView> {
   @override
   void initState() {
     super.initState();
-        context.read<UserVM>().checkTokenExpiry(() {
+    context.read<UserVM>().checkTokenExpiry(() {
       return ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
@@ -42,7 +42,6 @@ class _OrdersViewState extends State<OrdersView> {
   @override
   Widget build(BuildContext context) {
     var user = context.watch<UserVM>();
-    log('Profile pic: ${user.profilePic.toString()}');
     return DefaultTabController(
       length: 2,
       child: ResponsiveWidget(
@@ -165,8 +164,8 @@ class _OrdersViewState extends State<OrdersView> {
                                               ? const EmptyContainer(
                                                   message: 'Available orders')
                                               : OrderCard(
-                                                order: orders[index],
-                                              );
+                                                  order: orders[index],
+                                                );
                                         }),
                                   );
                                 }
@@ -212,8 +211,8 @@ class _OrdersViewState extends State<OrdersView> {
                                               ? const EmptyContainer(
                                                   message: 'Assigned orders')
                                               : OrderCard(
-                                                order: orders[index],
-                                              );
+                                                  order: orders[index],
+                                                );
                                         }),
                                   );
                                 }

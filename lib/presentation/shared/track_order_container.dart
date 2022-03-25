@@ -67,7 +67,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
                                 ),
                               ),
                               TextSpan(
-                                text: 'Ade John',
+                                text: trackOrderVM.user.name,
                                 style: GoogleFonts.lato(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
@@ -109,7 +109,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
                                 ),
                               ),
                               TextSpan(
-                                text: 'Plot 18, Jeddiah Estate Enugu',
+                                text: widget.order.origin.address,
                                 style: GoogleFonts.lato(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
@@ -130,7 +130,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
                                 ),
                               ),
                               TextSpan(
-                                text: '081455189998',
+                                text: trackOrderVM.user.phoneNumber,
                                 style: GoogleFonts.lato(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
