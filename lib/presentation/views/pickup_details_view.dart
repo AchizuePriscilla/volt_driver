@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
+
+import '../viewmodels/user_view_model.dart';
 
 class PickupDetails extends StatefulWidget {
   final Order order;
@@ -15,6 +18,7 @@ class _PickupDetailsState extends State<PickupDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var user = context.watch<UserVM>();
     return ResponsiveWidget(
         scaffoldKey: _scaffoldKey,
         drawer: SizedBox(
@@ -56,10 +60,13 @@ class _PickupDetailsState extends State<PickupDetails> {
                           color: Palette.buttonColor.withOpacity(.7),
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: Image.asset(
-                              'assets/images/me.jpg',
-                              fit: BoxFit.cover,
-                            ).image,
+                            image: user.profilePic.isEmpty ||
+                                    user.profilePic == 'undefined'
+                                ? Image.asset(
+                                    'assets/images/empty_profile_picture.png',
+                                    fit: BoxFit.cover,
+                                  ).image
+                                : Image.network(user.profilePic).image,
                           ),
                         ),
                       ),

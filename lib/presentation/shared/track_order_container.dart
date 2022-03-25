@@ -44,7 +44,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
               child: Container(
                 padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 25.h),
                 color: Colors.white,
-                height: 180.h,
+                height: 200.h,
                 width: MediaQuery.of(context).size.width * .65,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +157,7 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
                         },
                         size: Size(
                           350.w,
-                          38.h,
+                          35.h,
                         ),
                       ),
                     ),

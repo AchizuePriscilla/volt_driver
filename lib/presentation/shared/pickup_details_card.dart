@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:volt_driver/handlers/handlers.dart';
 import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
+import 'package:volt_driver/presentation/viewmodels/order_view_model.dart';
 import 'package:volt_driver/utils/utils.dart';
 
 class PickupDetailsCard extends StatelessWidget {
@@ -107,9 +109,9 @@ class PickupDetailsCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: Button(
                   text: 'Accept',
-                  onPressed: () {
-                    locator<NavigationHandler>().pushNamed(trackOrderViewRoute,
-                        arg: PickupDetailsArgs(order));
+                  loading: context.watch<OrderVM>().loading,
+                  onPressed: () async {
+                    await context.read<OrderVM>().assignOrder(order);
                   },
                   color: Theme.of(context).primaryColor,
                 ),

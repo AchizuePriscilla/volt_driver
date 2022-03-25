@@ -1,6 +1,7 @@
 import 'package:volt_driver/models/user_model.dart';
 import 'package:volt_driver/presentation/viewmodels/base_view_model.dart';
 import 'package:volt_driver/utils/utils.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class UserVM extends BaseViewModel {
   late UserModel _user;
@@ -82,6 +83,16 @@ class UserVM extends BaseViewModel {
       return _rxUser.longitude;
     } catch (e) {
       return 0;
+    }
+  }
+
+  Future<void> checkTokenExpiry(Function handleExpiry) async {
+    String? token = await localCache.getToken();
+    bool isTokenExpired = JwtDecoder.isExpired(token!);
+    if (isTokenExpired) {
+      await localCache.deleteToken();
+      handleExpiry();
+      navigationHandler.pushNamed(logInViewRoute);
     }
   }
 

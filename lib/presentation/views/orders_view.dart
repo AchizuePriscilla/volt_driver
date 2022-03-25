@@ -20,6 +20,22 @@ class _OrdersViewState extends State<OrdersView> {
   @override
   void initState() {
     super.initState();
+        context.read<UserVM>().checkTokenExpiry(() {
+      return ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: SizedBox(
+            height: 30.h,
+            child: Center(
+              child: Text(
+                'Session Expired, please login',
+                style: TextStyle(fontSize: 14.sp),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
     context.read<UserVM>().fetchUserDataFromCache();
   }
 
