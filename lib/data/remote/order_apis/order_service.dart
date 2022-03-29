@@ -1,11 +1,13 @@
 import 'package:volt_driver/data/remote/order_apis/order_repo.dart';
-import 'package:volt_driver/models/api/orders.dart';
+import 'package:volt_driver/models/api/get_order_list_response.dart';
+import 'package:volt_driver/models/api/get_order_response.dart';
 
 import '../../../models/api/general_response.dart';
 
 abstract class OrderService {
-  Future<GetOrdersResponse> getAssignedOrders();
-  Future<GetOrdersResponse> getAllOrders();
+  Future<GetOrderListResponse> getAssignedOrders();
+  Future<GetOrderListResponse> getAllOrders();
+  Future<GetOrderResponse> getOrderById(String id);
   Future<GeneralResponse> updateOrderStatus(
       {required String orderId, required String status});
   Future<GeneralResponse> assignOrder(String orderId);
@@ -17,13 +19,13 @@ class OrderServiceImpl implements OrderService {
   OrderServiceImpl({required this.orderRepo});
 
   @override
-  Future<GetOrdersResponse> getAssignedOrders() async {
+  Future<GetOrderListResponse> getAssignedOrders() async {
     var res = await orderRepo.getAssignedOrders();
     return res;
   }
 
   @override
-  Future<GetOrdersResponse> getAllOrders() async {
+  Future<GetOrderListResponse> getAllOrders() async {
     var res = await orderRepo.getAllOrders();
     return res;
   }
@@ -39,6 +41,12 @@ class OrderServiceImpl implements OrderService {
   @override
   Future<GeneralResponse> assignOrder(String orderId) async {
     var res = await orderRepo.assignOrder(orderId);
+    return res;
+  }
+
+  @override
+  Future<GetOrderResponse> getOrderById(String id) async {
+    var res = await orderRepo.getOrderById(id);
     return res;
   }
 }

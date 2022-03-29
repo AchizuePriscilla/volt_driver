@@ -4,27 +4,27 @@ import 'package:volt_driver/models/api/api_response.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'api_error_response.dart';
 
-class GetOrdersResponse extends Equatable {
+class GetOrderResponse extends Equatable {
   final bool success;
-  final OrderListModel? orders;
+  final OrderModel? order;
   final ApiErrorResponse? error;
 
-  const GetOrdersResponse({
+  const GetOrderResponse({
     this.success = false,
     this.error,
-    this.orders,
+    this.order,
   });
 
-  factory GetOrdersResponse.fromMap(Either<Failure, Success> json) {
+  factory GetOrderResponse.fromMap(Either<Failure, Success> json) {
     return json.fold(
-      (failure) => GetOrdersResponse(error: failure.error),
-      (success) => GetOrdersResponse(
+      (failure) => GetOrderResponse(error: failure.error),
+      (success) => GetOrderResponse(
         success: true,
-        orders: OrderListModel.fromMap(success.data),
+        order: OrderModel.fromMap(success.data['order']),
       ),
     );
   }
 
   @override
-  List<Object?> get props => [success, error, orders];
+  List<Object?> get props => [success, error, order];
 }

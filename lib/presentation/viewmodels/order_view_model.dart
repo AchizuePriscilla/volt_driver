@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/models/user_model.dart';
@@ -8,7 +10,9 @@ class OrderVM extends BaseViewModel {
   late OrderListModel assignedOrders;
   late OrderListModel allOrders;
   late UserModel _user;
+  late OrderModel _rxOrder;
   UserModel get user => _user;
+  OrderModel get order => _rxOrder;
 
   void showPickedUpDialog() {
     dialogHandler.showDialog(
@@ -29,7 +33,7 @@ class OrderVM extends BaseViewModel {
     }
   }
 
-  Future<List<Order>> getAssignedOrders() async {
+  Future<List<OrderModel>> getAssignedOrders() async {
     try {
       var res = await orderService.getAssignedOrders();
       assignedOrders = res.orders!;
@@ -40,12 +44,36 @@ class OrderVM extends BaseViewModel {
     }
   }
 
+  Future<bool> getOrderById(String id) async {
+    try {
+      var order = await orderService.getOrderById(id);
+      _rxOrder = order.order!;
+      if (order.success) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      AppLogger.logger.d(e);
+      return false;
+    }
+  }
+
   Future<void> updateOrderStatus(
       {required String orderId, required String status}) async {
     try {
       if (loading) return;
       toggleLoading(true);
-      await orderService.updateOrderStatus(orderId: orderId, status: status);
+      var res = await orderService.updateOrderStatus(
+          orderId: orderId, status: status);
+      if (res.success) {
+        await getOrderById(orderId);
+        if (status == 'DELIVERED') {
+          showPickedUpDialog();
+        }
+      } else {
+        dialogHandler.showDialog(contentType: DialogContentType.error);
+      }
       toggleLoading(false);
     } catch (e) {
       AppLogger.logger.d(e);
@@ -53,7 +81,7 @@ class OrderVM extends BaseViewModel {
     }
   }
 
-  Future<void> assignOrder(Order order) async {
+  Future<void> assignOrder(OrderModel order) async {
     try {
       if (loading) return;
       toggleLoading(true);
@@ -74,7 +102,7 @@ class OrderVM extends BaseViewModel {
     }
   }
 
-  Future<List<Order>> getAllOrders() async {
+  Future<List<OrderModel>> getAllOrders() async {
     try {
       var res = await orderService.getAllOrders();
       allOrders = res.orders!;

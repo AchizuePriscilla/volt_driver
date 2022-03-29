@@ -57,12 +57,14 @@ abstract class BaseApi {
   Future<Either<Failure, Success>> get(
     path, {
     Map<String, dynamic>? data,
+    Map<String, dynamic>? parameters,
     Map<String, dynamic> headers = const {},
   }) =>
       makeRequest(
         dio.request(
           "/$path",
           data: data,
+          queryParameters: parameters,
           options: Options(
             method: "GET",
             headers: {

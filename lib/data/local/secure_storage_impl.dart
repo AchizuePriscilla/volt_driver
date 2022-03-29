@@ -25,6 +25,7 @@ class SecureStorageImpl implements SecureStorage {
       return await _storage.read(key: key);
     } catch (e) {
       AppLogger.logger.d(e);
+      return '';
     }
   }
 

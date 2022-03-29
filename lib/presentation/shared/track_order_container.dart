@@ -5,7 +5,7 @@ import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
 
 class TrackOrderContainer extends StatefulWidget {
-  final Order order;
+  final OrderModel order;
   const TrackOrderContainer({Key? key, required this.order}) : super(key: key);
 
   @override
@@ -14,24 +14,38 @@ class TrackOrderContainer extends StatefulWidget {
 
 class _TrackOrderContainerState extends State<TrackOrderContainer> {
   bool phoneIconVisible = false;
-  int index = 1;
-  String getText(int num) {
-    switch (num) {
-      case 1:
+  String getText(String status) {
+    switch (status) {
+      case 'ASSIGNED':
         return 'Start Pickup';
-      case 2:
+      case 'DELIVERING':
         return 'Arrived at Pickup';
-      case 3:
+      case 'ARRIVED':
         return 'Pickup';
 
       default:
-        return 'default';
+        return 'Pick up';
+    }
+  }
+
+  String getStatus(String status) {
+    switch (status) {
+      case 'ASSIGNED':
+        return 'DELIVERING';
+      case 'DELIVERING':
+        return 'ARRIVED';
+      case 'ARRIVED':
+        return 'DELIVERED';
+
+      default:
+        return '';
     }
   }
 
   @override
   Widget build(BuildContext context) {
     var trackOrderVM = context.read<OrderVM>();
+    var rxtrackOrderVM = context.watch<OrderVM>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -145,15 +159,12 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Button(
-                        text: getText(index),
+                        text: getText(rxtrackOrderVM.order.status),
+                        loading: rxtrackOrderVM.loading,
                         onPressed: () {
-                          setState(() {
-                            index++;
-                            if (index == 4) {
-                              trackOrderVM.showPickedUpDialog();
-                              index = 1;
-                            }
-                          });
+                          trackOrderVM.updateOrderStatus(
+                              orderId: widget.order.id,
+                              status: getStatus(rxtrackOrderVM.order.status));
                         },
                         size: Size(
                           350.w,
@@ -166,7 +177,8 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
               ),
             ),
             Visibility(
-              visible: index == 2 ? true : false,
+              visible:
+                  rxtrackOrderVM.order.status == 'DELIVERING' ? true : false,
               child: Positioned(
                 top: -15.h,
                 left: MediaQuery.of(context).size.width * .325 - 13.h,

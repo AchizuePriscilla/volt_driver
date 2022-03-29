@@ -5,7 +5,7 @@ import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
 
 class PickupDetails extends StatefulWidget {
-  final Order order;
+  final OrderModel order;
   const PickupDetails({Key? key, required this.order}) : super(key: key);
 
   @override

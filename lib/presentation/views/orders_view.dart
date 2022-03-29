@@ -126,7 +126,7 @@ class _OrdersViewState extends State<OrdersView> {
                         child: Text("Available orders"),
                       ),
                       Tab(
-                        child: Text("Assigned"),
+                        child: Text("Assigned to me"),
                       ),
                     ],
                   ),
@@ -144,11 +144,11 @@ class _OrdersViewState extends State<OrdersView> {
                               right: Radius.circular(20),
                             ),
                           ),
-                          child: FutureBuilder<List<Order>>(
+                          child: FutureBuilder<List<OrderModel>>(
                               future: context.watch<OrderVM>().getAllOrders(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  var orders = snapshot.data;
+                                  var orders = snapshot.data!.reversed.toList();
 
                                   return RefreshIndicator(
                                     onRefresh: () async {
@@ -158,7 +158,7 @@ class _OrdersViewState extends State<OrdersView> {
                                     },
                                     child: ListView.builder(
                                         itemCount:
-                                            orders!.isEmpty ? 1 : orders.length,
+                                            orders.isEmpty ? 1 : orders.length,
                                         itemBuilder: (context, index) {
                                           return orders.isEmpty
                                               ? const EmptyContainer(
@@ -190,12 +190,12 @@ class _OrdersViewState extends State<OrdersView> {
                               right: Radius.circular(20),
                             ),
                           ),
-                          child: FutureBuilder<List<Order>>(
+                          child: FutureBuilder<List<OrderModel>>(
                               future:
                                   context.watch<OrderVM>().getAssignedOrders(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  var orders = snapshot.data;
+                                  var orders = snapshot.data!.reversed.toList();
 
                                   return RefreshIndicator(
                                     onRefresh: () async {
@@ -205,7 +205,7 @@ class _OrdersViewState extends State<OrdersView> {
                                     },
                                     child: ListView.builder(
                                         itemCount:
-                                            orders!.isEmpty ? 1 : orders.length,
+                                            orders.isEmpty ? 1 : orders.length,
                                         itemBuilder: (context, index) {
                                           return orders.isEmpty
                                               ? const EmptyContainer(

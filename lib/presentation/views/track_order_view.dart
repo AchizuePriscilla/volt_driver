@@ -7,7 +7,7 @@ import 'package:volt_driver/presentation/shared/responsive_widget.dart';
 import 'package:volt_driver/presentation/shared/track_order_container.dart';
 
 class TrackOrderView extends StatefulWidget {
-  final Order order;
+  final OrderModel order;
   const TrackOrderView({required this.order, Key? key}) : super(key: key);
 
   @override

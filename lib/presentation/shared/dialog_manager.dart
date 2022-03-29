@@ -26,7 +26,7 @@ class _DialogManagerState extends State<DialogManager> {
     _dialogHandler = locator<DialogHandler>();
     _dialogHandler.registerDialogListener(_showDialog);
     _dialogHandler.registerDismissDialogListener(_dismissDialog);
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       _dialogHandler = locator<DialogHandler>();
       _dialogHandler.registerDialogListener(_showDialog);
       _dialogHandler.registerDismissDialogListener(_dismissDialog);

@@ -14,7 +14,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       await context.read<SplashScreenVM>().handleNavigation();
     });
   }
@@ -30,8 +30,8 @@ class _SplashScreenViewState extends State<SplashScreenView> {
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             image: const DecorationImage(
-              image: AssetImage('assets/images/blue_background.png'),
-            ),
+                image: AssetImage('assets/images/blue_background.png'),
+                fit: BoxFit.cover),
           ),
           child: Center(
             child: SizedBox(

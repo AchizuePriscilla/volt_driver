@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_driver/handlers/handlers.dart';
 import 'package:volt_driver/models/order_list_model.dart';
-import 'package:volt_driver/models/user_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/viewmodels/order_view_model.dart';
 import 'package:volt_driver/utils/utils.dart';
 
 class PickupDetailsCard extends StatelessWidget {
-  final Order order;
+  final OrderModel order;
   const PickupDetailsCard({
     required this.order,
     Key? key,
@@ -116,6 +115,7 @@ class PickupDetailsCard extends StatelessWidget {
                   loading: context.watch<OrderVM>().loading,
                   onPressed: () async {
                     await context.read<OrderVM>().assignOrder(order);
+                    await context.read<OrderVM>().getOrderById(order.id);
                   },
                   color: Theme.of(context).primaryColor,
                 ),

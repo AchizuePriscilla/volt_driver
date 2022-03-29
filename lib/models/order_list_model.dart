@@ -8,7 +8,7 @@ class OrderListModel {
     required this.orders,
   });
 
-  final List<Order> orders;
+  final List<OrderModel> orders;
 
   factory OrderListModel.fromJson(String str) =>
       OrderListModel.fromMap(json.decode(str));
@@ -16,7 +16,7 @@ class OrderListModel {
   String toJson() => json.encode(toMap());
 
   factory OrderListModel.fromMap(Map<String, dynamic> json) => OrderListModel(
-        orders: List<Order>.from(json["orders"].map((x) => Order.fromMap(x))),
+        orders: List<OrderModel>.from(json["orders"].map((x) => OrderModel.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -24,8 +24,8 @@ class OrderListModel {
       };
 }
 
-class Order {
-  Order({
+class  OrderModel {
+  OrderModel({
     required this.id,
     required this.userWears,
     required this.price,
@@ -63,11 +63,11 @@ class Order {
   final String createdBy;
   final DateTime updatedAt;
 
-  factory Order.fromJson(String str) => Order.fromMap(json.decode(str));
+  factory OrderModel.fromJson(String str) => OrderModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Order.fromMap(Map<String, dynamic> json) => Order(
+  factory OrderModel.fromMap(Map<String, dynamic> json) => OrderModel(
         id: json["id"] ?? '',
         userWears: List<UserWear>.from(
             json["userWears"].map((x) => UserWear.fromMap(x))),

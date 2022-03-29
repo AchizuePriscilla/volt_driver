@@ -32,6 +32,7 @@ class LocalCacheImpl implements LocalCache {
       return sharedPreferences.get(key);
     } catch (e) {
       AppLogger.logger.d(e);
+      return null;
     }
   }
 
@@ -41,6 +42,7 @@ class LocalCacheImpl implements LocalCache {
       return await storage.read(userToken);
     } catch (e) {
       AppLogger.logger.d(e);
+      return '';
     }
   }
 
@@ -121,5 +123,4 @@ class LocalCacheImpl implements LocalCache {
   //     AppLogger.logger.d(e);
   //   }
   // }
-  }
-
+}

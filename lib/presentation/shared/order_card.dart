@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_driver/handlers/handlers.dart';
@@ -5,10 +7,11 @@ import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
 import 'package:volt_driver/presentation/viewmodels/viewmodels.dart';
+import 'package:volt_driver/utils/string_utils.dart';
 import 'package:volt_driver/utils/utils.dart';
 
 class OrderCard extends StatelessWidget {
-  final Order order;
+  final OrderModel order;
   const OrderCard({
     required this.order,
     Key? key,
@@ -46,7 +49,7 @@ class OrderCard extends StatelessWidget {
               horizontal: true,
             ),
             Text(
-              '28 Minutes ago',
+              StringUtils.getTimeAgo(order.createdAt),
               style: GoogleFonts.lato(
                   fontWeight: FontWeight.w300, fontSize: 12.sp),
             )
@@ -57,15 +60,20 @@ class OrderCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Button(
               text: 'View Order',
+              active: !context.watch<OrderVM>().loading,
               onPressed: () async {
                 await context.read<OrderVM>().getUserById(order.createdBy);
-                order.assignedTo == ''
-                    ? locator<NavigationHandler>().pushNamed(
-                        pickupDetailsViewRoute,
-                        arg: PickupDetailsArgs(order: order))
-                    : locator<NavigationHandler>().pushNamed(
-                        trackOrderViewRoute,
-                        arg: PickupDetailsArgs(order: order));
+                var success =
+                    await context.read<OrderVM>().getOrderById(order.id);
+                if (success) {
+                  order.assignedTo == ''
+                      ? locator<NavigationHandler>().pushNamed(
+                          pickupDetailsViewRoute,
+                          arg: PickupDetailsArgs(order: order))
+                      : locator<NavigationHandler>().pushNamed(
+                          trackOrderViewRoute,
+                          arg: PickupDetailsArgs(order: order));
+                }
               },
               color: Palette.lightGreen,
             ),
