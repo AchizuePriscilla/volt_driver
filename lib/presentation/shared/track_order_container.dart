@@ -182,19 +182,24 @@ class _TrackOrderContainerState extends State<TrackOrderContainer> {
               child: Positioned(
                 top: -15.h,
                 left: MediaQuery.of(context).size.width * .325 - 13.h,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: 36.h,
-                    width: 36.h,
-                    decoration: const BoxDecoration(
-                      color: Palette.buttonColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.phone_in_talk_outlined,
-                      color: Theme.of(context).primaryColorLight,
-                      size: 22.h,
+                child: InkWell(
+                  onTap: () async {
+                    await trackOrderVM.callUser(trackOrderVM.user);
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 36.h,
+                      width: 36.h,
+                      decoration: const BoxDecoration(
+                        color: Palette.buttonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.phone_in_talk_outlined,
+                        color: Theme.of(context).primaryColorLight,
+                        size: 22.h,
+                      ),
                     ),
                   ),
                 ),

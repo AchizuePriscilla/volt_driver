@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:volt_driver/handlers/handlers.dart';
 import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/models/order_list_model.dart';
 import 'package:volt_driver/models/user_model.dart';
@@ -112,4 +113,30 @@ class OrderVM extends BaseViewModel {
       return [];
     }
   }
+
+  Future<void> callUser(UserModel user) async {
+    try {
+      if (user.phoneNumber!.isNotEmpty) {
+        var res = await locator<UrlLaunchHandler>().callPhone(user.phoneNumber!);
+
+        if (res is UrlLaunchException) {
+          dialogHandler.showDialog(
+            title: "Internal error",
+            message: "Unknown error contact support",
+            contentType: DialogContentType.error
+          );
+        }
+      } else{
+        dialogHandler.showDialog(
+          title: "Phone number not available",
+          message:
+              "You cannot call @${user.name} because their phone number is not available",
+          autoDismiss: true,
+        );}
+    } catch (e) {
+      AppLogger.logger.d(e);
+    }
+  }
 }
+
+

@@ -13,15 +13,18 @@ class BaseViewModel extends ChangeNotifier {
   late LocalCache localCache;
   late AuthService authService;
   late OrderService orderService;
+  late UrlLaunchHandler urlLaunchHandler;
 
   BaseViewModel(
       {NavigationHandler? navigationHandler,
       DialogHandler? dialogHandler,
+      UrlLaunchHandler? urlLaunchHandler,
       LocalCache? localCache,
       AuthService? authService,
       OrderService? orderService}) {
     this.navigationHandler = navigationHandler ?? locator();
     this.dialogHandler = dialogHandler ?? locator();
+    this.urlLaunchHandler = urlLaunchHandler ?? locator();
     this.localCache = localCache ?? locator();
     this.authService = authService ?? locator();
     this.orderService = orderService ?? locator();

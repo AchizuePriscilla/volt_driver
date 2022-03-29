@@ -16,3 +16,4 @@ export 'driver_drawer.dart';
 export 'order_card.dart';
 export 'pickup_details_card.dart';
 export 'track_order_container.dart';
+export 'error_dialog.dart';

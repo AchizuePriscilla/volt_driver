@@ -48,19 +48,13 @@ dependencies:
   dartz: ^0.10.0-nullsafety.2
   flutter_dotenv: ^5.0.0
   shared_preferences: ^2.0.6
-  flutter_secure_storage: ^4.2.0
+  flutter_secure_storage: ^5.0.2
   sentry_flutter: ^6.0.1
   timeago: ^3.1.0
   jwt_decoder: ^2.0.1
-  dio:
-    git: 
-      url: https://github.com/Space-HQ/dio.git
-      path: dio/
-
-  pretty_dio_logger:
-    git:
-      url: https://github.com/Space-HQ/pretty_dio_logger.git
-
+  url_launcher: ^6.0.9
+  dio: ^4.0.4
+  pretty_dio_logger: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

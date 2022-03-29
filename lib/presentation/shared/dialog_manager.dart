@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:volt_driver/handlers/dialog_handler.dart';
 import 'package:volt_driver/models/dialog/dialog_request.dart';
-import 'package:volt_driver/presentation/shared/picked_up_dialog.dart';
 import 'package:volt_driver/presentation/shared/dialog_card.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
-import 'package:volt_driver/presentation/shared/success_dialog.dart';
-import 'package:volt_driver/presentation/shared/transaction_successful_dialog.dart';
 import 'package:volt_driver/utils/utils.dart';
 
 class DialogManager extends StatefulWidget {
@@ -26,7 +23,7 @@ class _DialogManagerState extends State<DialogManager> {
     _dialogHandler = locator<DialogHandler>();
     _dialogHandler.registerDialogListener(_showDialog);
     _dialogHandler.registerDismissDialogListener(_dismissDialog);
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
       _dialogHandler = locator<DialogHandler>();
       _dialogHandler.registerDialogListener(_showDialog);
       _dialogHandler.registerDismissDialogListener(_dismissDialog);
@@ -71,15 +68,10 @@ class _DialogManagerState extends State<DialogManager> {
           dismissDialog: (status) => _dismissDialog(true),
         );
 
-      case DialogContentType.pickedUp:
-        return PickedUpDialog(
+      case DialogContentType.error:
+        return ErrorDialog(
           request: request,
-          dismissDialog: (status) => _dismissDialog(status),
-        );
- case DialogContentType.error:
-        return TransactionSuccessfulDialog(
-          request: request,
-          dismissDialog: (status) => _dismissDialog(status),
+          dismissDialog: (status) => _dismissDialog(true),
         );
 
       default:
