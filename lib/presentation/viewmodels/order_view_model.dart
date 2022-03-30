@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:volt_driver/handlers/handlers.dart';
 import 'package:volt_driver/models/navigation/pickup_details_args.dart';
 import 'package:volt_driver/models/order_list_model.dart';

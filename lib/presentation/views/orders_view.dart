@@ -19,7 +19,7 @@ class _OrdersViewState extends State<OrdersView> {
 
   @override
   void initState() {
-    super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
     context.read<UserVM>().checkTokenExpiry(() {
       return ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -37,6 +37,8 @@ class _OrdersViewState extends State<OrdersView> {
       );
     });
     context.read<UserVM>().fetchUserDataFromCache();
+    context.read<UserVM>().initLocation();
+    super.initState();
   }
 
   @override

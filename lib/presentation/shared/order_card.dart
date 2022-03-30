@@ -63,6 +63,7 @@ class OrderCard extends StatelessWidget {
               active: !context.watch<OrderVM>().loading,
               onPressed: () async {
                 await context.read<OrderVM>().getUserById(order.createdBy);
+                
                 var success =
                     await context.read<OrderVM>().getOrderById(order.id);
                 if (success) {

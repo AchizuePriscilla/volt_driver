@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +14,15 @@ import 'package:volt_driver/utils/utils.dart';
 abstract class BaseApi {
   late Dio dio;
   final apiKey = dotenv.env['API_KEY'];
+ static String getGoogleApiKey() {
+    if (Platform.isAndroid) {
+      return dotenv.env['GOOGLE_API_ANDROID']!;
+    } else if (Platform.isIOS) {
+      return dotenv.env['GOOGLE_API_IOS']!;
+    }
+    return '';
+  }
+
   BaseApi(String baseApi) {
     final options = BaseOptions(
         baseUrl: "https://$baseApi",
@@ -140,8 +150,8 @@ abstract class BaseApi {
       //check for status code that indicates expired session and log user out
       log('Status Code: ${req.statusCode.toString()}');
       if ("${req.statusCode}".startsWith('2')) {
-        if(data is! Map){
-          return Right(Success(<String, dynamic>{"data":data}));
+        if (data is! Map) {
+          return Right(Success(<String, dynamic>{"data": data}));
         }
         return Right(Success(data as Map<String, dynamic>));
       }

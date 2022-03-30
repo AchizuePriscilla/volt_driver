@@ -4,6 +4,8 @@ import 'package:volt_driver/data/local/local.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_repo.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_service.dart';
 import 'package:volt_driver/data/remote/connectivity_service.dart';
+import 'package:volt_driver/data/remote/direction_apis/direction_repo.dart';
+import 'package:volt_driver/data/remote/direction_apis/direction_service.dart';
 import 'package:volt_driver/data/remote/order_apis/order_repo.dart';
 import 'package:volt_driver/data/remote/order_apis/order_service.dart';
 import 'package:volt_driver/handlers/handlers.dart';
@@ -46,6 +48,10 @@ Future<void> setupLocator({String baseApi = ''}) async {
   locator.registerLazySingleton<OrderService>(
     () => OrderServiceImpl(orderRepo: locator()),
   );
+
+  locator.registerLazySingleton<DirectionService>(
+    () => DirectionServiceImpl(locator()),
+  );
   //repos
   locator.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(baseApi),
@@ -53,5 +59,9 @@ Future<void> setupLocator({String baseApi = ''}) async {
 
   locator.registerLazySingleton<OrderRepo>(
     () => OrderRepoImpl(baseApi),
+  );
+
+  locator.registerLazySingleton<DirectionRepository>(
+    () => DirectionRepoImpl("maps.googleapis.com/maps/api/directions/json?"),
   );
 }

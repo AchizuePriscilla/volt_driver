@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:volt_driver/data/local/local.dart';
 import 'package:volt_driver/data/remote/auth_apis/auth_service.dart';
+import 'package:volt_driver/data/remote/direction_apis/direction_service.dart';
 import 'package:volt_driver/data/remote/order_apis/order_service.dart';
 import 'package:volt_driver/handlers/handlers.dart';
 import 'package:volt_driver/utils/locator.dart';
@@ -13,6 +14,7 @@ class BaseViewModel extends ChangeNotifier {
   late LocalCache localCache;
   late AuthService authService;
   late OrderService orderService;
+  late DirectionService directionService;
   late UrlLaunchHandler urlLaunchHandler;
 
   BaseViewModel(
@@ -21,6 +23,7 @@ class BaseViewModel extends ChangeNotifier {
       UrlLaunchHandler? urlLaunchHandler,
       LocalCache? localCache,
       AuthService? authService,
+      DirectionService? directionService,
       OrderService? orderService}) {
     this.navigationHandler = navigationHandler ?? locator();
     this.dialogHandler = dialogHandler ?? locator();
@@ -28,6 +31,7 @@ class BaseViewModel extends ChangeNotifier {
     this.localCache = localCache ?? locator();
     this.authService = authService ?? locator();
     this.orderService = orderService ?? locator();
+    this.directionService = directionService ?? locator();
   }
   bool _loading = false;
   bool get loading => _loading;
