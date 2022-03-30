@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -33,7 +34,8 @@ class _TrackOrderPageState extends State<TrackOrderView> {
   late LatLng currentLocation;
   late LatLng destinationLocation;
   final Set<Polyline> _polylines = <Polyline>{};
-
+  Completer<GoogleMapController> _controller = Completer();
+  Location location = Location();
   void setInitialLocation() {
     var _rxUserVM = context.read<UserVM>();
     var latitude = _rxUserVM.currenLocation.latitude;
@@ -49,8 +51,37 @@ class _TrackOrderPageState extends State<TrackOrderView> {
     super.initState();
   }
 
+  void updatePinOnMap() async {
+    CameraPosition cPosition = CameraPosition(
+      zoom: 16,
+      target: LatLng(currentLocation.latitude, currentLocation.longitude),
+    );
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+
+    setState(() {
+      var pinPosition =
+          LatLng(currentLocation.latitude, currentLocation.longitude);
+      _markers.removeWhere((m) => m.markerId.value == 'driverPosition');
+      _markers.add(Marker(
+          markerId: const MarkerId('driverPosition'),
+          infoWindow: const InfoWindow(title: 'My Position'),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          position: pinPosition));
+    });
+  }
+
+  void getCurrentLocationAndUpdatePin() {
+    location.onLocationChanged.listen((LocationData cLoc) {
+      currentLocation = LatLng(cLoc.latitude!, cLoc.longitude!);
+      updatePinOnMap();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getCurrentLocationAndUpdatePin();
     void showMarker() {
       setState(() {
         _markers.add(Marker(
@@ -104,17 +135,15 @@ class _TrackOrderPageState extends State<TrackOrderView> {
             child: Stack(
               children: [
                 GoogleMap(
-                  onCameraMove: (position) {
-                    _getPolyline();
-                  },
                   mapType: MapType.terrain,
                   initialCameraPosition: CameraPosition(
                       target: LatLng(
                           currentLocation.latitude, currentLocation.longitude),
-                      zoom: 15),
+                      zoom: 12),
                   zoomControlsEnabled: false,
                   trafficEnabled: true,
-                  onMapCreated: (contoller) async {
+                  onMapCreated: (controller) async {
+                    _controller.complete(controller);
                     showMarker();
                     await _getPolyline();
                   },
