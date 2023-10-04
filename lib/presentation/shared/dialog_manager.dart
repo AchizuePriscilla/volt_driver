@@ -23,7 +23,7 @@ class _DialogManagerState extends State<DialogManager> {
     _dialogHandler = locator<DialogHandler>();
     _dialogHandler.registerDialogListener(_showDialog);
     _dialogHandler.registerDismissDialogListener(_dismissDialog);
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _dialogHandler = locator<DialogHandler>();
       _dialogHandler.registerDialogListener(_showDialog);
       _dialogHandler.registerDismissDialogListener(_dismissDialog);
@@ -33,7 +33,7 @@ class _DialogManagerState extends State<DialogManager> {
   void _showDialog(DialogRequest request) {
     _overlayEntry = _createOverlayEntry(request);
     if (_overlayEntry != null) {
-      Overlay.of(context)!.insert(_overlayEntry!);
+      Overlay.of(context).insert(_overlayEntry!);
 
       //dismiss dialog after [duration] if [autoDismiss] is true
       if (request.autoDismiss) {

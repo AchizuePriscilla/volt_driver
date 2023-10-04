@@ -54,7 +54,7 @@ class ResponsiveWidget extends StatelessWidget {
             bottomNavigationBar: bottomNavigationBar,
             key: scaffoldKey,
             backgroundColor:
-                backgroundColor ?? Theme.of(context).backgroundColor,
+                backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
             appBar: appBar,
             drawer: drawer,

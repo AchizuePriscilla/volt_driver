@@ -1,21 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_driver/data/config/base_api.dart';
 import 'package:volt_driver/models/order_list_model.dart';
-import 'package:volt_driver/presentation/shared/custom_back_button.dart';
-import 'package:volt_driver/presentation/shared/custom_spacer.dart';
-import 'package:volt_driver/presentation/shared/responsive_widget.dart';
 import 'package:volt_driver/presentation/shared/shared.dart';
-import 'package:volt_driver/presentation/shared/track_order_container.dart';
 import 'package:volt_driver/presentation/viewmodels/user_view_model.dart';
 import 'package:volt_driver/utils/utils.dart';
 
@@ -30,11 +21,11 @@ class TrackOrderView extends StatefulWidget {
 class _TrackOrderPageState extends State<TrackOrderView> {
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
-  Set<Marker> _markers = Set<Marker>();
+  final Set<Marker> _markers = <Marker>{};
   late LatLng currentLocation;
   late LatLng destinationLocation;
   final Set<Polyline> _polylines = <Polyline>{};
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
   Location location = Location();
   void setInitialLocation() {
     var _rxUserVM = context.read<UserVM>();
