@@ -21,7 +21,7 @@ abstract class NavigationHandler {
   void goBack();
 
   ///Pops routes on stack until `destinationRoute` is hit
-  void popUntil(String destinationRoute);
+  void popUntil([String? destinationRoute]);
 
   ///Exits app
   void exitApp();
@@ -48,48 +48,45 @@ class NavigationHandlerImpl implements NavigationHandler {
 
   @override
   void goBack() {
-    if (state != null) {
-      return state!.pop();
-    }
+    state?.pop();
   }
 
   @override
   Future? popAndPushNamed(String destinationRoute, {arg}) {
-    if (state != null) {
-      return state!.popAndPushNamed(destinationRoute, arguments: arg);
-    }
+    return state?.popAndPushNamed(destinationRoute, arguments: arg);
   }
 
   @override
-  void popUntil(String destinationRoute) {
+  void popUntil([String? destinationRoute]) {
     if (state != null) {
-      return state!.popUntil(ModalRoute.withName(destinationRoute));
+      if (destinationRoute != null) {
+        return state!.popUntil(ModalRoute.withName(destinationRoute));
+      } else {
+        return state!.popUntil((route) => true);
+      }
     }
   }
 
   @override
   Future? pushNamed(String destinationRoute, {arg}) {
-    if (state != null) {
-      return state!.pushNamed(destinationRoute, arguments: arg);
-    }
+    return state?.pushNamed(destinationRoute, arguments: arg);
   }
 
   @override
-  Future? pushNamedAndRemoveUntil(String destinationRoute, String lastRoute,
-      {arg}) {
-    if (state != null) {
-      return state!.pushNamedAndRemoveUntil(
-        destinationRoute,
-        ModalRoute.withName(lastRoute),
-        arguments: arg,
-      );
-    }
+  Future? pushNamedAndRemoveUntil(
+    String destinationRoute,
+    String lastRoute, {
+    arg,
+  }) {
+    return state?.pushNamedAndRemoveUntil(
+      destinationRoute,
+      ModalRoute.withName(lastRoute),
+      arguments: arg,
+    );
   }
 
   @override
   Future? pushReplacementNamed(String destinationRoute, {arg}) {
-    if (state != null) {
-      return state!.pushReplacementNamed(destinationRoute, arguments: arg);
-    }
+    return state?.pushReplacementNamed(destinationRoute, arguments: arg);
   }
 }

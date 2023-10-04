@@ -54,9 +54,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       validator: (value) {
-        if (validator != null) {
-          return validator!(value ?? "");
-        }
+        return validator?.call(value ?? "");
       },
       decoration: InputDecoration(
         alignLabelWithHint: true,
